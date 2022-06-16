@@ -13,7 +13,7 @@ module.exports = async function (context, req) {
     }
     else
     {
-        context.res.body = 'Please provide a message to encode';
+        context.res.body = 'Please enter some text to convert!';
         context.res.status = 400;
     }
 }
