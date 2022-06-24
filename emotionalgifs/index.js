@@ -10,8 +10,7 @@ module.exports = async function (context, req) {
 
     const base64Image = parts[0].data.toString('base64');
 
-    const emotions = getImageEmotions(parts[0].data);
-
+    const emotions = await getImageEmotions(parts[0].data);
 
     context.res = {
         status: 200,
@@ -19,19 +18,21 @@ module.exports = async function (context, req) {
     };
 }
 
-const getImageEmotions = (imageBuffer) => {
+const getImageEmotions = async (imageBuffer) => {
     const subscriptionKey = process.env.SUBSCRIPTIONKEY;
     const urlBase = process.env.ENDPOINT + '/face/v1.0/detect';
     const parameters = new URLSearchParams({
         'returnFaceAttributes': 'emotion',
         'returnFaceIds': 'true',
     });
+    const url = `${urlBase}?${parameters.toString()}`;
 
-    const response = await fetch(`${urlBase}?${parameters.toString()}`, {
+    const response = await fetch(url, {
         method: 'POST',
         body: imageBuffer,
         headers: {
             'Content-Type': 'application/octet-stream',
+            'Ocp-Apim-Subscription-Key': subscriptionKey,
         },
     });
 

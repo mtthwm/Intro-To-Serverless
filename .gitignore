@@ -98,3 +98,6 @@ local.settings.json
 
 # DS_Store
 .DS_Store
+
+#Added by Matthew Morales
+*.env
