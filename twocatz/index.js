@@ -13,7 +13,7 @@ module.exports = async function (context, req) {
             "Shreya", 
             "Emily", 
             "Fifi", 
-            "Beau", 
+            "Beau",
             "Evelyn", 
             "Julia", 
             "Daniel", 
