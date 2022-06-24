@@ -10,10 +10,11 @@ module.exports = async function (context, req) {
     const base64Image = parts[0].data.toString('base64');
     const emotions = await getImageEmotions(parts[0].data);
     const dominantEmotion = getDominantEmotion(emotions[0]);
+    const gif = await getRandomGiphy(dominantEmotion.emotion, 'g');
 
     context.res = {
         status: 200,
-        body: dominantEmotion.emotion,
+        body: gif.data.url,
     };
 }
 
@@ -51,3 +52,16 @@ const getImageEmotions = async (imageBuffer) => {
 
     return response.json();
 };
+
+const getRandomGiphy = async (tag, rating) => {
+    const params = new URLSearchParams({
+        api_key: process.env.GIPHY_ENDPOINT,
+        tag: tag,
+        rating: rating,  
+    });
+    const url = `https://api.giphy.com/v1/gifs/random?${params.toString()}`;
+    const response = await fetch(url, {
+        method: 'GET',
+    });
+    return response.json();
+}
