@@ -22,6 +22,7 @@ module.exports = async function (context, req) {
   // const image = parts[0].data;
 
   // //END DEBUG
+  
 
   const age = await getAgeFromImage(image);
   const generation = getGenerationFromAge(age);
