@@ -5,12 +5,30 @@ const parseMultipart = require('parse-multipart');
 const {BlobServiceClient} = require('@azure/storage-blob')
 
 module.exports = async function (context, req) {
+    if (!req.body)
+    {
+        context.res = noImageResponse();
+        return;
+    }
     const parts = readMultipartRequest(req);
+    if (!parts[0] || !parts[0].data)
+    {
+        context.res = noImageResponse();
+        return;
+    }
 
-    const uploadResponse = await uploadFile('test', getFileExtension(parts[0]), parts[0]);
+    const fileName = req.query.codename ? req.query.codename : 'untitled';
+    const uploadResponse = await uploadFile(fileName, getFileExtension(parts[0]), parts[0]);
 
     context.res = {
-        'body': 'File Saved'
+        body: uploadResponse,
+    };
+}
+
+
+const noImageResponse = () => {
+    return {
+        body: 'Sorry! No image attached.'
     };
 }
 
