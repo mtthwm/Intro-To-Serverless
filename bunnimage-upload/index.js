@@ -21,7 +21,7 @@ const getFileExtension = (requestPart) => {
         'image/jpg': 'jpg',
     };
 
-    const extension = extensionMap[requestPart];
+    const extension = extensionMap[requestPart.type];
     if (!extension)
     {
         return '';
