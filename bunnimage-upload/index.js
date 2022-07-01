@@ -7,7 +7,7 @@ const {BlobServiceClient} = require('@azure/storage-blob')
 module.exports = async function (context, req) {
     const parts = readMultipartRequest(req);
 
-    const uploadResponse = await uploadFile('test', getFileExtension(parts[0]), parts[0]);
+    // const uploadResponse = await uploadFile('test', getFileExtension(parts[0]), parts[0]);
 
     context.res = {
         'body': 'File Saved'
