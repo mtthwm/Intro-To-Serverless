@@ -1,13 +1,71 @@
-module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, ".env") });
+const fetch = require('node-fetch');
+const parseMultipart = require('parse-multipart');
+const {BlobServiceClient} = require('@azure/storage-blob')
 
-    const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = name
-        ? "Hello, " + name + ". This HTTP triggered function executed successfully."
-        : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
+module.exports = async function (context, req) {
+    if (!req.body)
+    {
+        context.res = noImageResponse();
+        return;
+    }
+    const parts = readMultipartRequest(req);
+    if (!parts[0] || !parts[0].data)
+    {
+        context.res = noImageResponse();
+        return;
+    }
+
+    const fileName = req.query.codename ? req.query.codename : 'untitled';
+    const uploadResponse = await uploadFile(fileName, getFileExtension(parts[0]), parts[0]);
 
     context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
+        body: uploadResponse,
     };
 }
+
+
+const noImageResponse = () => {
+    return {
+        body: 'Sorry! No image attached.'
+    };
+}
+
+const getFileExtension = (requestPart) => {
+    const extensionMap = {
+        'image/png': 'png',
+        'image/jpeg': 'jpeg',
+        'image/jpg': 'jpg',
+    };
+
+    const extension = extensionMap[requestPart.type];
+    if (!extension)
+    {
+        return '';
+    }
+
+    return extension;
+};
+
+const readMultipartRequest = (req) => {
+
+    // Read parts of the request individually.
+    const boundary = parseMultipart.getBoundary(req.headers['content-type']);
+    const body = req.body;
+    const parts = parseMultipart.Parse(body, boundary);
+
+    return parts;
+};
+
+const uploadFile = async (name, extension, requestPart) => {
+
+    // Upload the image
+    const blobServiceInstance = await BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
+    const container = await blobServiceInstance.getContainerClient(process.env.BLOB_CONTAINER_NAME);
+    const blob = await container.getBlockBlobClient(`${name}.${extension}`);
+
+    const postUploadResponse = await blob.upload(requestPart.data, requestPart.data.length);
+
+    return postUploadResponse;
+};
