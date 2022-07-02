@@ -20,7 +20,7 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install minimist
-          npm install node-fetch
+          npm install node-fetch@2
           
       - name: Get Count
         id: vars
