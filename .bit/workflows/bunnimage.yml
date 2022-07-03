@@ -20,7 +20,7 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install minimist
-          npm install node-fetch
+          npm install node-fetch@2
           
       - name: Get Count
         id: vars
@@ -41,7 +41,7 @@ jobs:
           container_name: ${{ secrets.container_name }}
           blob_url: ${{ secrets.blob_url }}
         run: |
-          npm install node-fetch
+          npm install node-fetch@2
           npm install form-data
           node .bit/tests/test.3.2.js --repo=${{github.event.repository.name}} --user=${{github.repository_owner}}
       - name: Step 37
@@ -51,7 +51,7 @@ jobs:
           container_name: ${{ secrets.container_name }}
           blob_url: ${{ secrets.blob_url }}
         run: |
-          npm install node-fetch
+          npm install node-fetch@2
           npm install form-data
           node .bit/tests/test.3.3.js --repo=${{github.event.repository.name}} --user=${{github.repository_owner}}
       - name: Step 41
@@ -62,7 +62,7 @@ jobs:
           container_name: ${{ secrets.container_name }}
           blob_url: ${{ secrets.blob_url }}
         run: |
-          npm install node-fetch
+          npm install node-fetch@2
           npm install form-data
           node .bit/tests/test.3.5.js --repo=${{github.event.repository.name}} --user=${{github.repository_owner}}
       - name: Check for branch
