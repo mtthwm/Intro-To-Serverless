@@ -42,6 +42,7 @@ async function main() {
                         "username": "bunnimagetestrun1001"
                     }
                 });
+                console.log(`RESPONSE ${testresp} END RESPONSE`);
                 var message = await testresp.json()
                 console.log(`MESSAGE: ${message} END MESSAGE`);
 
