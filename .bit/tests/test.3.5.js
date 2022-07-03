@@ -23,7 +23,6 @@ async function main() {
 
                 const formHeaders = formData.getHeaders();
 
-                console.info(`Trying uri1: ${uri1} <-`);
                 const resp1 = await fetch(uri1, {
                     method: 'POST',
                     body: formData,
@@ -35,16 +34,13 @@ async function main() {
                 var result1 = await resp1.text()
                 let test1 = JSON.stringify(result1)
 
-                console.info(`Trying uri2: ${uri2} <--`);
                 const testresp = await fetch(uri2, {
                     method: 'GET',
                     headers: {
                         "username": "bunnimagetestrun1001"
                     }
                 });
-                console.log(`RESPONSE ${testresp} END RESPONSE`);
                 var message = await testresp.json()
-                console.log(`MESSAGE: ${message} END MESSAGE`);
 
                 functions.validateResponseStatus(testresp, uri)
 
@@ -57,7 +53,6 @@ async function main() {
                     process.exit(1)
                 }
             } catch (e) {
-                console.log(e.stack);
                 console.error("Try again! We got this error when trying to make a request: " + e)
                 await functions.throwError("Try again! We got this error when trying to make a request: " + e, user, repo)
                 process.exit(1)
