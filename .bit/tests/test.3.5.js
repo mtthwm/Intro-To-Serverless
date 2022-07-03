@@ -23,7 +23,7 @@ async function main() {
 
                 const formHeaders = formData.getHeaders();
 
-                console.info('Trying uri1: ', uri1);
+                console.info(`Trying uri1: ${uri1} <-`);
                 const resp1 = await fetch(uri1, {
                     method: 'POST',
                     body: formData,
@@ -35,7 +35,7 @@ async function main() {
                 var result1 = await resp1.text()
                 let test1 = JSON.stringify(result1)
 
-                console.info('Trying uri2: ', uri2);
+                console.info(`Trying uri2: ${uri2} <--`);
                 const testresp = await fetch(uri2, {
                     method: 'GET',
                     headers: {
@@ -43,6 +43,7 @@ async function main() {
                     }
                 });
                 var message = await testresp.json()
+                console.log(`MESSAGE: ${message} END MESSAGE`);
 
                 functions.validateResponseStatus(testresp, uri)
 
