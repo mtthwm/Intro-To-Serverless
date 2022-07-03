@@ -53,6 +53,7 @@ async function main() {
                     process.exit(1)
                 }
             } catch (e) {
+                console.log(e.stack);
                 console.error("Try again! We got this error when trying to make a request: " + e)
                 await functions.throwError("Try again! We got this error when trying to make a request: " + e, user, repo)
                 process.exit(1)
