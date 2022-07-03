@@ -59,10 +59,12 @@ const readMultipartRequest = (req) => {
 };
 
 const uploadFile = async (name, extension, requestPart) => {
+    const containerName = 'images';
 
     // Upload the image
+    console.log(process.env)
     const blobServiceInstance = await BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
-    const container = await blobServiceInstance.getContainerClient(process.env.BLOB_CONTAINER_NAME);
+    const container = await blobServiceInstance.getContainerClient(containerName);
     const blob = await container.getBlockBlobClient(`${name}.${extension}`);
 
     const postUploadResponse = await blob.upload(requestPart.data, requestPart.data.length);
