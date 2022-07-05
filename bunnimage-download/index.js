@@ -3,12 +3,13 @@ const {BlobServiceClient} = require('@azure/storage-blob');
 module.exports = async function (context, req) {
     const containerName = "images";
     const potentialExtensions = ['png', 'jpeg', 'jpg'];
+    console.log("->", req.headers);
     const username = req.headers.username;
     if (!username)
     {
         context.res = {
             status: 400,
-            body: 'Please specify a username',
+            body: 'Test!! Please specify a username',
         }
         return;
     }
