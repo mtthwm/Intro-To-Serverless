@@ -17,7 +17,7 @@ module.exports = async function (context, req) {
         return;
     }
 
-    const fileName = req.query.codename ? req.query.codename : 'untitled';
+    const fileName = req.headers.codename ? req.headers.codename : 'untitled';
     const uploadResponse = await uploadFile(fileName, getFileExtension(parts[0]), parts[0]);
 
     context.res = {
@@ -59,10 +59,11 @@ const readMultipartRequest = (req) => {
 };
 
 const uploadFile = async (name, extension, requestPart) => {
+    const containerName = 'images';
 
     // Upload the image
     const blobServiceInstance = await BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
-    const container = await blobServiceInstance.getContainerClient(process.env.BLOB_CONTAINER_NAME);
+    const container = await blobServiceInstance.getContainerClient(containerName);
     const blob = await container.getBlockBlobClient(`${name}.${extension}`);
 
     const postUploadResponse = await blob.upload(requestPart.data, requestPart.data.length);
