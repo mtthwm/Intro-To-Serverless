@@ -17,7 +17,7 @@ module.exports = async function (context, req) {
         return;
     }
 
-    const fileName = req.query.codename ? req.query.codename : 'untitled';
+    const fileName = req.headers.codename ? req.headers.codename : 'untitled';
     const uploadResponse = await uploadFile(fileName, getFileExtension(parts[0]), parts[0]);
 
     context.res = {
