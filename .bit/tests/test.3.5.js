@@ -33,9 +33,9 @@ async function main() {
                 });
                 console.log(resp1, '<- Response1');
                 var result1 = await resp1.text()
-                console.log(result1, "<- rESULT");
+                console.log(result1, "<- rESULT1");
                 let test1 = JSON.stringify(result1)
-                console.log(test1, "<- TEST")
+                console.log(test1, "<- TEST1")
 
                 const testresp = await fetch(uri2, {
                     method: 'GET',
@@ -43,7 +43,9 @@ async function main() {
                         "username": "bunnimagetestrun1001"
                     }
                 });
+                console.log(testresp, '<- testresp');
                 var message = await testresp.json()
+                console.log(message, '<- message');
 
                 functions.validateResponseStatus(testresp, uri)
 
