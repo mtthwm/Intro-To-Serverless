@@ -45,6 +45,9 @@ async function main() {
 
                 functions.validateResponseStatus(testresp, uri2);
 
+                console.log(`${blob_url}/${containerName}/bunnimagetestrun1001.jpeg`);
+                console.log(message.downloadUri);
+
                 if (JSON.stringify(message.downloadUri).includes(`${blob_url}/${containerName}/bunnimagetestrun1001.jpeg`)) {
                     console.info("Yay! 🎉 We got our picture!")
                 } else {
