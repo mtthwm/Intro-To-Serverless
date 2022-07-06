@@ -41,6 +41,7 @@ async function main() {
                     }
                 });
                 var message = await testresp.json()
+                console.log(message);
 
                 functions.validateResponseStatus(testresp, uri2);
 
