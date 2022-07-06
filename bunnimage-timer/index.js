@@ -5,8 +5,9 @@ const {BlobServiceClient} = require('@azure/storage-blob');
 module.exports = async function (context, myTimer) {
     var timeStamp = new Date().toISOString();
 
+    const containerName = 'images';
     const blobService = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
-    const container = blobService.getContainerClient(process.env.BLOB_CONTAINER_NAME);
+    const container = blobService.getContainerClient(containerName);
 
     context.log('Beginning delete...')
     for await (const blob of container.listBlobsFlat()) {
