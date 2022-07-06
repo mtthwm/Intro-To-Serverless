@@ -53,7 +53,7 @@ module.exports = async function (context, req) {
  * @param {string} container
  */
 const checkForFile = async (name, extension) => {
-    const url = `https://${process.env.BLOB_STORAGE_URL}.blob.core.windows.net/images/${name}.${extension}`;
+    const url = `https://serverlesscampstorage.blob.core.windows.net/images/${name}.${extension}`;
     const response = await fetch(url, {method: 'GET'});
 
     if (response.status !== 404)
