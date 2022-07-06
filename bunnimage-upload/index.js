@@ -62,7 +62,6 @@ const uploadFile = async (name, extension, requestPart) => {
     const containerName = 'images';
 
     // Upload the image
-    console.log(process.env)
     const blobServiceInstance = await BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
     const container = await blobServiceInstance.getContainerClient(containerName);
     const blob = await container.getBlockBlobClient(`${name}.${extension}`);

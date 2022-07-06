@@ -31,8 +31,11 @@ async function main() {
                         "codename": "bunnimagetestrun1001"
                     },
                 });
+                console.log(resp1, '<- Response1');
                 var result1 = await resp1.text()
+                console.log(result1, "<- rESULT");
                 let test1 = JSON.stringify(result1)
+                console.log(test1, "<- TEST")
 
                 const testresp = await fetch(uri2, {
                     method: 'GET',
