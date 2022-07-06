@@ -1,9 +1,9 @@
-const {BlobServiceClient} = require('@azure/storage-blob');
+const fetch = require('node-fetch');
 
 module.exports = async function (context, req) {
     const containerName = "images";
     const potentialExtensions = ['png', 'jpeg', 'jpg'];
-    console.log("->", req.headers);
+
     const username = req.headers.username;
     if (!username)
     {
@@ -17,7 +17,7 @@ module.exports = async function (context, req) {
     let url;
     for (const extension of potentialExtensions)
     {
-        url = await checkForFile(username, extension, containerName);
+        url = await checkForFile(username, extension);
         if (url)
         {
             break;
@@ -39,7 +39,7 @@ module.exports = async function (context, req) {
         context.res = {
             status: 404,
             body: {
-                downloadUri: null,
+                downloadUri: '',
                 success: false,
             }
         }
@@ -52,15 +52,12 @@ module.exports = async function (context, req) {
  * @param {string} extension 
  * @param {string} container
  */
-const checkForFile = async (name, extension, container) => {
-    const blobServiceClient = await BlobServiceClient.fromConnectionString(process.env.AZURE_BLOB_STORAGE_CONNECTION_STRING);
-    const containerClient = await blobServiceClient.getContainerClient(container);
-    const blobClient = await containerClient.getBlockBlobClient(`${name}.${extension}`);
+const checkForFile = async (name, extension) => {
+    const url = `https://${process.env.BLOB_STORAGE_URL}.blob.core.windows.net/images/${name}.${extension}`;
+    const response = await fetch(url, {method: 'GET'});
 
-    const fileExists = await blobClient.exists();
-    if (fileExists) {
-        return blobClient.url;
-    } else {
-        return null;
+    if (response.status !== 404)
+    {
+        return url;
     }
 }
