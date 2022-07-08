@@ -14,15 +14,9 @@ const createSecret = async (container, secretObject) => {
 };
 
 module.exports = async function (context, req) {
-    // Production
     const queryObject = qs.parse(req.body);
     const messageBody = queryObject.Body;
-    // End Production
-
-    // // Debug
-    // const messageBody = "THIS IS A VERY SECRET SECRET!!! " + Math.random();
-    // // End Debug
-
+    
     // Database Setup
     const {endpoint, key, databaseId, containerId} = config;
 
