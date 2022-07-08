@@ -34,16 +34,17 @@ module.exports = async function (context, req) {
     await dbContext.createDB(client, config);
 
 
-    // Get the latest item
+    // Get all items
     const querySpec = {
-        query: 'SELECT top 1 * FROM c order by c._ts desc',
+        query: `SELECT * from ${containerId}`,
     }
 
     const {resources: items} = await container.items
         .query(querySpec)
         .fetchAll();
 
-    const lastSecret = items[0];
+    const secretIndex = Math.floor(Math.random() * items.length);
+    const lastSecret = items[secretIndex];
 
     // Save the secret
     await createSecret(container, new Secret(messageBody));
