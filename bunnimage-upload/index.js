@@ -5,20 +5,27 @@ const parseMultipart = require('parse-multipart');
 const {BlobServiceClient} = require('@azure/storage-blob')
 
 module.exports = async function (context, req) {
+    console.log(req.headers);
     if (!req.body)
     {
         context.res = noImageResponse();
+        context.log("NO BODY");
         return;
     }
+    context.log('valid body');
     const parts = readMultipartRequest(req);
+    context.log('READ MULTIPART DATA. PARTS:', parts);
     if (!parts[0] || !parts[0].data)
     {
         context.res = noImageResponse();
+        context.log("NO IMAGE");
         return;
     }
 
     const fileName = req.headers.codename ? req.headers.codename : 'untitled';
+    context.log('UPLOADING', fileName);
     const uploadResponse = await uploadFile(fileName, getFileExtension(parts[0]), parts[0]);
+    context.log('UPLOADED!', uploadResponse);
 
     context.res = {
         body: uploadResponse,
@@ -52,8 +59,11 @@ const readMultipartRequest = (req) => {
 
     // Read parts of the request individually.
     const boundary = parseMultipart.getBoundary(req.headers['content-type']);
+    console.log(boundary, 'boundary from readMultipartRequest');
     const body = req.body;
+    console.log(body, 'body from readMultipartRequest');
     const parts = parseMultipart.Parse(body, boundary);
+    console.log(parts, 'parts from readMultipartRequest');
 
     return parts;
 };
