@@ -2,28 +2,38 @@
 
 ### Azure Services
 
-**Name of Service**
-- [replace with bullet list of what purpose(s) it serves for my project]
-- [include how it will interact with other components of your project listed above/below]
+**Azure Functions**
+- Communicates with the Azure database
+- Manages access tokens for the Kroger API
+
+**Cosmos DB**
+- Stores user's grocery lists
 
 ### APIs
 
-**Name of API**
-- [replace with bullet list of what purpose(s) it serves for my project]
-- [include how it will interact with other components of your project listed above/below]
+**Kroger API**
+- Gets product prices
+- Gets Kroger locations and corresponding product availability
 
 ### Packages/Libraries/Databases
 
-**Name of Packages/Library/Database**
-- [replace with bullet list of what purpose(s) it serves for my project]
-- [include how it will interact with other components of your project listed above/below]
+**Node Fetch**
+- Make requests to the Kroger API
+
+**Azure Cosmos Client**
+- Communicate with Cosmos DB
 
 ### Front-end Languages
 
-**Name of Language**
-- [replace with bullet list of what purpose(s) it serves for my project]
-- [include how it will interact with other components of your project listed above/below]
+**HTML**
+- Site structure and layout
+- Outlined basic UI
 
+**CSS**
+- Site design
+
+**JS**
+- Handles user input and communicating with Azure functions
 ### Flowchart
 
 [Replace with image of final flowchart]
