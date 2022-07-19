@@ -55,21 +55,6 @@
 
 ## Week 2
 
-### Search Dropdown Pagination?:
-
-#### Description
-- If a user makes too broad of a search term, the Kroger API might return way too many results to display all at once. I may need to implement some sort of pagination. I think the cleanest way to do this would be an infinite scroll.
-
-#### ETA:
-> How long do you think it will take to complete this?
-- 2-3 hours
-
-#### Objective:
-> Checklist of everything you need to do to complete this issue
-- [ ] Listen for a user scrolling to the bottom of the dropdown item view
-- [ ] On scroll, send a request to the list endpoint
-- [ ] Add pagination controls to the list endpoints
-
 ### Create Location Search Endpoint
 
 #### Description
@@ -102,23 +87,6 @@
 - [ ] Configure the fetch request
 - [ ] Style the result list
 
-
-### Create Product Selection Tool:
-
-#### Description
-- In order to find products, users will type search terms into a search bar and a list of products will appear.
-
-#### ETA:
-> How long do you think it will take to complete this?
-- 1-2
-
-#### Objective:
-> Checklist of everything you need to do to complete this issue
-- [ ] Implement the generic search dropdown solution
-- [ ] Configure the fetch request
-- [ ] Style the result list
-
-
 ### Create search-products Endpoint:
 
 #### Description
@@ -135,11 +103,25 @@
 - [ ] Return data to the client
 - [ ] Add some styles
 
+### Create Product Selection Tool:
+
+#### Description
+- In order to find products, users will type search terms into a search bar and a list of products will appear.
+
+#### ETA:
+> How long do you think it will take to complete this?
+- 1-2
+
+#### Objective:
+> Checklist of everything you need to do to complete this issue
+- [ ] Implement the generic search dropdown solution
+- [ ] Configure the fetch request
+- [ ] Style the result list
 
 ### Create List View:
 
 #### Description
-- There needs to be some way to view the items added to the list!
+- There needs to be some way to view the items added to the list
 
 #### ETA:
 > How long do you think it will take to complete this?
